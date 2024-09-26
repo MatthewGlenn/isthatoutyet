@@ -12,7 +12,10 @@
 2. Select the repository and branch you want to deploy.
 3. Click "Begin setup".
 
-## Deploying the Static Webpage
+## Deploying the React and TypeScript Application with Deno 2
 
-1. Configure the build settings if necessary.
+1. Configure the build settings:
+   - **Build command:** `deno bundle src/index.tsx dist/bundle.js`
+   - **Build directory:** `dist`
+   - **Framework/tool:** `Deno 2`
 2. Click "Save and Deploy".
