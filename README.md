@@ -8,15 +8,7 @@ The title of the static webpage is "Is that out yet?".
 The static webpage is hosted on Cloudflare Pages.
 
 ## Deployment Instructions
-To deploy the repository to Cloudflare Pages, follow these steps:
-1. Log in to your Cloudflare account.
-2. Go to the Cloudflare Pages dashboard.
-3. Click on "Create a project".
-4. Connect your GitHub repository to Cloudflare Pages.
-5. Select the repository and branch you want to deploy.
-6. Click "Begin setup".
-7. Configure the build settings if necessary.
-8. Click "Save and Deploy".
+For detailed deployment instructions, please refer to the [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) file.
 
 ## Project Information
 This project is a basic static webpage with the title "Is that out yet?". It is hosted on Cloudflare Pages.
