@@ -33,12 +33,12 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/MatthewGlenn/isthatoutyet:latest
-            ghcr.io/MatthewGlenn/isthatoutyet:${{ github.ref == 'refs/heads/main' && 'latest' || 'beta' }}
+            ghcr.io/matthewglenn/isthatoutyet:latest
+            ghcr.io/matthewglenn/isthatoutyet:${{ github.ref == 'refs/heads/main' && 'latest' || 'beta' }}
 
       - name: Run tests
         run: |
-          docker run --rm ghcr.io/MatthewGlenn/isthatoutyet:latest /bin/sh -c "pytest tests"
+          docker run --rm ghcr.io/matthewglenn/isthatoutyet:latest /bin/sh -c "pytest tests"
 
       - name: Update README with build status
         run: |

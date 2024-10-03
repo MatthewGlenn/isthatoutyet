@@ -18,7 +18,7 @@
    ```
 3. Pull the Docker image from the GitHub Container Registry:
    ```
-   docker pull ghcr.io/MatthewGlenn/isthatoutyet:latest
+   docker pull ghcr.io/matthewglenn/isthatoutyet:latest
    ```
 4. Start the Docker container using Docker Compose:
    ```
@@ -41,7 +41,7 @@
    ```
 2. Pull the latest Docker image from the GitHub Container Registry:
    ```
-   docker pull ghcr.io/MatthewGlenn/isthatoutyet:latest
+   docker pull ghcr.io/matthewglenn/isthatoutyet:latest
    ```
 3. Restart the Docker container:
    ```
@@ -56,7 +56,7 @@
 2. Start the Docker service and enable it to start on boot.
 3. Pull the Docker image from the GitHub Container Registry:
    ```
-   docker pull ghcr.io/MatthewGlenn/isthatoutyet:latest
+   docker pull ghcr.io/matthewglenn/isthatoutyet:latest
    ```
 4. Start the Docker container using Docker Compose:
    ```
@@ -68,7 +68,7 @@
 1. Install Docker on your local machine.
 2. Pull the Docker image from the GitHub Container Registry:
    ```
-   docker pull ghcr.io/MatthewGlenn/isthatoutyet:latest
+   docker pull ghcr.io/matthewglenn/isthatoutyet:latest
    ```
 3. Start the Docker container using Docker Compose:
    ```
@@ -88,7 +88,7 @@
    ```
 4. Pull the Docker image from the GitHub Container Registry:
    ```
-   docker pull ghcr.io/MatthewGlenn/isthatoutyet:latest
+   docker pull ghcr.io/matthewglenn/isthatoutyet:latest
    ```
 5. Start the Docker container using Docker Compose:
    ```
