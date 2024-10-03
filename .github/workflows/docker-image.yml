@@ -22,11 +22,13 @@ jobs:
         REGISTRY: ghcr.io
         IMAGE_NAME: ${{ github.event.repository.name }}
         PACKAGE_NAME: isthatoutyet
+        TAGS: ${{ github.sha }}, ${{ github.event.head_commit.timestamp }}${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && ',latest' || '' }}
+        PUSH_IMAGE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
       with:
         image: ${{ env.IMAGE_NAME }}
-        tags: ${{ github.ref == 'refs/heads/main' && 'latest' || github.ref_name + '-' + github.sha }}
+        tags: ${{ env.TAGS }}
         registry: ${{ env.REGISTRY }}
-        pushImage: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        pushImage: ${{ env.PUSH_IMAGE }}
         multiPlatform: false
         platform: linux/amd64
         username: ${{ github.actor }}
