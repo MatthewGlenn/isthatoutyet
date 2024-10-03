@@ -1,0 +1,46 @@
+name: Build and Deploy Docker Image
+
+on:
+  push:
+    branches:
+      - main
+      - '*'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/MatthewGlenn/isthatoutyet:latest
+            ghcr.io/MatthewGlenn/isthatoutyet:${{ github.ref == 'refs/heads/main' && 'latest' || 'beta' }}
+
+      - name: Run tests
+        run: |
+          docker run --rm ghcr.io/MatthewGlenn/isthatoutyet:latest /bin/sh -c "pytest tests"
+
+      - name: Update README with build status
+        run: |
+          BUILD_STATUS=$(curl -s https://github.com/MatthewGlenn/isthatoutyet/actions/workflows/docker-image.yml/badge.svg?branch=main)
+          sed -i "s|!\[Build Status\](.*)|![Build Status]($BUILD_STATUS)|" README.md
