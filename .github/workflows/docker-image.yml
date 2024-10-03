@@ -32,7 +32,7 @@ jobs:
         multiPlatform: false
         platform: linux/amd64
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ secrets.GH_PACKAGE_TOKEN }}
 
   update_status:
     runs-on: ubuntu-latest
