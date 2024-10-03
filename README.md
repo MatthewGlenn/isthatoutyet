@@ -27,13 +27,21 @@ For detailed deployment instructions, please refer to the [docs/DEPLOYMENT.md](d
 ## Future Features and Tasks
 The following features and tasks are planned for future implementation:
 - [ ] A calendar view to display upcoming media releases.
+  - [ ] Week View
+  - [ ] Month view
 - [ ] Integration with external APIs to fetch release dates.
+- [ ] Countdown for item page
 - [ ] Newsletter for users
 - [ ] Discord alerts
 - [ ] Support for different types of media releases, such as:
+  - [ ] Video Games
+    - [ ] Player(s)
+    - [ ] Feature(s)
+    - [ ] Link to Open Critic
+    - [ ] Link to Meta Critic
+    - [ ] Link to Twitch streams (Twitch ID)
   - [ ] Movies
   - [ ] TV Shows
-  - [ ] Video Games
   - [ ] Comic Books
 - [ ] Securing the site with HTTPS
 - [ ] Using Kubernetes
