@@ -23,8 +23,8 @@ jobs:
         IMAGE_NAME: ${{ github.event.repository.name }}
         PACKAGE_NAME: isthatoutyet
         TAGS: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && 'latest' || 'dev' }}
-        # TAGS: latest
-        PUSH_IMAGE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        # PUSH_IMAGE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        PUSH_IMAGE: true # We are always pushing the image to the registry, because will use are tagging non main branches with dev
       with:
         image: ${{ env.IMAGE_NAME }}
         tags: ${{ env.TAGS }}
