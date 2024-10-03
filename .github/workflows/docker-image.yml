@@ -10,7 +10,7 @@ on:
       - main
 
 jobs:
-  build:
+  build_and_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,14 +23,9 @@ jobs:
       - name: Run tests
         run: docker run --rm ghcr.io/matthewglenn/isthatoutyet:latest /bin/sh -c "pytest tests"
 
-      - name: Update README with build status
-        run: |
-          BUILD_STATUS=$(curl -s https://github.com/MatthewGlenn/isthatoutyet/actions/workflows/docker-image.yml/badge.svg?branch=main)
-          sed -i "s|!\[Build Status\](.*)|![Build Status]($BUILD_STATUS)|" README.md
-
-  build_and_push_image:
+  push_to_registry:
     runs-on: ubuntu-latest
-    needs: check_version_latest
+    needs: build
     steps:
     - name: Check out the repo
       uses: actions/checkout@v4
@@ -52,3 +47,12 @@ jobs:
         platform: linux/amd64
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+
+  update_status:
+    runs-on: ubuntu-latest
+    needs: push_to_registry
+    steps:
+      - name: Update README with build status
+        run: |
+          BUILD_STATUS=$(curl -s https://github.com/MatthewGlenn/isthatoutyet/actions/workflows/docker-image.yml/badge.svg?branch=main)
+          sed -i "s|!\[Build Status\](.*)|![Build Status]($BUILD_STATUS)|" README.md
