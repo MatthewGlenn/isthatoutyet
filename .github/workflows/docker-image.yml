@@ -22,7 +22,7 @@ jobs:
         REGISTRY: ghcr.io
         IMAGE_NAME: ${{ github.event.repository.name }}
         PACKAGE_NAME: isthatoutyet
-        TAGS: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && 'latest' || 'dev' }}, ${{ github.branch }}
+        TAGS: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && 'latest' || 'dev' }}
         # TAGS: latest
         PUSH_IMAGE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
       with:
