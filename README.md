@@ -1,4 +1,5 @@
 # isthatoutyet
+![Build Status](https://github.com/MatthewGlenn/isthatoutyet/actions/workflows/docker-image.yml/badge.svg?branch=main)
 Calendar for New Media Releases
 
 ## Title of the Static Webpage
@@ -6,6 +7,9 @@ The title of the static webpage is "Is that out yet?".
 
 ## Deployment Instructions
 For detailed deployment instructions, please refer to the [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) file.
+
+### Pulling the Docker Image from the Container Registry
+For instructions on pulling the Docker image from the GitHub Container Registry, please refer to the "Pulling the Docker Image from the Container Registry" section in the [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) file.
 
 ## Project Information
 This project is a basic static webpage with the title "Is that out yet?".

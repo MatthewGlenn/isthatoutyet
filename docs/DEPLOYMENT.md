@@ -16,11 +16,15 @@
    ```
    cd isthatoutyet
    ```
-3. Build and start the Docker container using Docker Compose:
+3. Pull the Docker image from the GitHub Container Registry:
    ```
-   docker-compose up --build -d
+   docker pull ghcr.io/matthewglenn/isthatoutyet:latest
    ```
-4. The static webpage should now be accessible on port 80 of your Linux instance.
+4. Start the Docker container using Docker Compose:
+   ```
+   docker-compose up -d
+   ```
+5. The static webpage should now be accessible on port 80 of your Linux instance.
 
 ## Removing the Docker Container
 
@@ -35,9 +39,40 @@
    ```
    git pull
    ```
-2. Rebuild and restart the Docker container:
+2. Pull the latest Docker image from the GitHub Container Registry:
    ```
-   docker-compose up --build -d
+   docker pull ghcr.io/matthewglenn/isthatoutyet:latest
+   ```
+3. Restart the Docker container:
+   ```
+   docker-compose up -d
+   ```
+
+## Pulling the Docker Image from the Container Registry
+
+### On the VPS
+
+1. Install Docker on your VPS by following the official Docker installation guide for your distribution.
+2. Start the Docker service and enable it to start on boot.
+3. Pull the Docker image from the GitHub Container Registry:
+   ```
+   docker pull ghcr.io/matthewglenn/isthatoutyet:latest
+   ```
+4. Start the Docker container using Docker Compose:
+   ```
+   docker-compose up -d
+   ```
+
+### Locally
+
+1. Install Docker on your local machine.
+2. Pull the Docker image from the GitHub Container Registry:
+   ```
+   docker pull ghcr.io/matthewglenn/isthatoutyet:latest
+   ```
+3. Start the Docker container using Docker Compose:
+   ```
+   docker-compose up -d
    ```
 
 ## Running Locally
@@ -51,8 +86,12 @@
    ```
    cd isthatoutyet
    ```
-4. Build and start the Docker container using Docker Compose:
+4. Pull the Docker image from the GitHub Container Registry:
    ```
-   docker-compose up --build -d
+   docker pull ghcr.io/matthewglenn/isthatoutyet:latest
    ```
-5. The static webpage should now be accessible on port 80 of your local machine.
+5. Start the Docker container using Docker Compose:
+   ```
+   docker-compose up -d
+   ```
+6. The static webpage should now be accessible on port 80 of your local machine.

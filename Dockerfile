@@ -1,6 +1,9 @@
 # Use an appropriate base image
 FROM nginx:alpine
 
+# Set the image source from the repo url
+LABEL org.opencontainers.image.source https://github.com/matthewglenn/isthatoutyet/
+
 # Copy the static files from the repository to the appropriate directory in the Docker image
 COPY . /usr/share/nginx/html
 

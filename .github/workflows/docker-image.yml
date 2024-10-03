@@ -1,0 +1,36 @@
+name: Build and Deploy Docker Image
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  push_to_registry:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v4
+
+    - name: Upload the Docker image to the container registry
+      id: container_registry_upload
+      uses: mr-smithers-excellent/docker-build-push@v6
+      env:
+        REGISTRY: ghcr.io
+        IMAGE_NAME: ${{ github.event.repository.name }}
+        PACKAGE_NAME: isthatoutyet
+        TAGS: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && 'latest' || 'dev' }}
+        # TAGS: latest
+        PUSH_IMAGE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      with:
+        image: ${{ env.IMAGE_NAME }}
+        tags: ${{ env.TAGS }}
+        registry: ${{ env.REGISTRY }}
+        pushImage: ${{ env.PUSH_IMAGE }}
+        multiPlatform: false
+        platform: linux/amd64
+        username: ${{ github.actor }}
+        password: ${{ secrets.GH_PACKAGE_TOKEN }}
