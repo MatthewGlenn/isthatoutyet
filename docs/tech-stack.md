@@ -4,7 +4,7 @@
   * Super Set - TypeScript
   * Subset - Shadcn - https://ui.shadcn.com/
 * JavaScript Framework - Next.Js
-* JavaScrip Runtime - Deno 2
+* JavaScript Runtime - Deno 2
 * Scraping and Adding new Content
   * Curated list of new releases
   * Config file with the name of the games we want to scrape
@@ -23,6 +23,6 @@
 * CI/CD - Github Actions
 * Container Registry - (GHCR) Github Container Registry
 * Containerization - Docker
-* Testing -
+* Testing - Jest?
 ## Hosting
 * VPS - Linode
