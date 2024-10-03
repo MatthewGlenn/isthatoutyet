@@ -4,7 +4,7 @@
   * Super Set - TypeScript
   * Subset - Shadcn - https://ui.shadcn.com/
 * JavaScript Framework - Next.Js
-* JavaScript Runtime - Deno 2
+* JavaScript Runtime - Node JS
 * Scraping and Adding new Content
   * Curated list of new releases
   * Config file with the name of the games we want to scrape
