@@ -1,14 +1,30 @@
 # Use an appropriate base image
-FROM nginx:alpine
+FROM node:lts-alpine3.20
 
 # Set the image source from the repo url
 LABEL org.opencontainers.image.source https://github.com/matthewglenn/isthatoutyet/
 
-# Copy the static files from the repository to the appropriate directory in the Docker image
-COPY . /usr/share/nginx/html
+# Set the working directory inside the container
+WORKDIR /app
 
-# Expose the necessary port for the web server
-EXPOSE 80
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
 
-# Set the default command to run the web server
-CMD ["nginx", "-g", "daemon off;"]
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application code to the working directory
+COPY . .
+
+# Generate Prisma client
+RUN npx prisma generate
+
+# Expose port 3000 to the host
+EXPOSE 3000
+
+# Copy the start script into the container
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
+# Command to run the application
+CMD [ "/usr/local/bin/start.sh" ]
