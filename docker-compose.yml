@@ -1,12 +1,32 @@
-version: '3.8'
-
 services:
   web:
+    container_name: isthatoutyet-web
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "3000:3000"
+    restart: always
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+    depends_on:
+      - db
+    develop:
+      watch:
+        - action: sync
+          path: ./
+          target: /app
+          ignore:
+            - node_modules
+        - action: rebuild
+          path: package.json
+  db:
+    container_name: isthatoutyet-db
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - "5432:5432"
     restart: always
   db:
     image: postgres:15-alpine
