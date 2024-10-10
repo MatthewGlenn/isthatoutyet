@@ -17,14 +17,11 @@ RUN npm install
 COPY . .
 
 # Generate Prisma client
-RUN npx prisma generate
+# Give the container the ability to run the start.sh script
+RUN npx prisma generate & chmod +x start.sh
 
 # Expose port 3000 to the host
 EXPOSE 3000
 
-# Copy the start script into the container
-COPY start.sh /usr/local/bin/start.sh
-RUN chmod +x /usr/local/bin/start.sh
-
 # Command to run the application
-CMD [ "/usr/local/bin/start.sh" ]
+CMD [ "./start.sh" ]
