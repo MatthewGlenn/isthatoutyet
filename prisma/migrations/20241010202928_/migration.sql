@@ -4,8 +4,8 @@ CREATE TABLE "Product" (
     "productTitle" TEXT NOT NULL,
     "productType" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );
@@ -13,12 +13,12 @@ CREATE TABLE "Product" (
 -- CreateTable
 CREATE TABLE "Release" (
     "id" TEXT NOT NULL,
-    "releaseDate" TIMESTAMP(3) NOT NULL,
+    "releaseDate" TIMESTAMPTZ(3) NOT NULL,
     "platform" TEXT NOT NULL,
     "productType" TEXT NOT NULL,
     "productTitleId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
 
     CONSTRAINT "Release_pkey" PRIMARY KEY ("id")
 );

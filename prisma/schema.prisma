@@ -20,19 +20,19 @@ model Product {
   productTitle  String   
   productType   String
   description   String   
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
   
   Release Release[]
 }
 
 model Release {
   id              String   @id @default(cuid())
-  releaseDate     DateTime
+  releaseDate     DateTime @db.Timestamptz(3)
   platform        String
   productType     String
   productTitleId  String
   productTitle    Product  @relation(fields: [productTitleId], references: [id] )
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt       DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime @updatedAt @db.Timestamptz(3)
 }
