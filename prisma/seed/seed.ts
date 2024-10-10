@@ -103,8 +103,8 @@ async function main() {
         where: { id: "1" },
         update: {},
         create: {
-            platform: "PC",
-            productType: games[0].releases[0].platform,
+            platform: games[0].releases[0].platform,
+            productType: "game",
             releaseDate: games[0].releases[0].releaseDate,
             productTitleId: product[0].id,
         }
@@ -113,8 +113,8 @@ async function main() {
         where: { id: "1" },
         update: {},
         create: {
-            platform: "PC",
-            productType: games[1].releases[0].platform,
+            platform: games[1].releases[0].platform,
+            productType: "game",
             releaseDate: games[1].releases[0].releaseDate,
             productTitleId: product[1].id,
         }
@@ -123,8 +123,8 @@ async function main() {
         where: { id: "1" },
         update: {},
         create: {
-            platform: "PC",
-            productType: games[2].releases[0].platform,
+            platform: games[2].releases[0].platform,
+            productType: "game",
             releaseDate: games[2].releases[0].releaseDate,
             productTitleId: product[2].id,
         }
@@ -133,8 +133,8 @@ async function main() {
         where: { id: "1" },
         update: {},
         create: {
-            platform: "PC",
-            productType: games[3].releases[0].platform,
+            platform: games[3].releases[0].platform,
+            productType: "game",
             releaseDate: games[3].releases[0].releaseDate,
             productTitleId: product[3].id,
         }
@@ -143,8 +143,8 @@ async function main() {
         where: { id: "1" },
         update: {},
         create: {
-            platform: "PC",
-            productType: games[4].releases[0].platform,
+            platform: games[4].releases[0].platform,
+            productType: "game",
             releaseDate: games[4].releases[0].releaseDate,
             productTitleId: product[4].id,
         }
@@ -153,8 +153,8 @@ async function main() {
         where: { id: "1" },
         update: {},
         create: {
-            platform: "PC",
-            productType: games[5].releases[0].platform,
+            platform: games[5].releases[0].platform,
+            productType: "game",
             releaseDate: games[5].releases[0].releaseDate,
             productTitleId: product[5].id,
         }
