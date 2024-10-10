@@ -1,0 +1,6 @@
+@isthatoutyet_api_HostAddress = http://localhost:5213
+
+GET {{isthatoutyet_api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
