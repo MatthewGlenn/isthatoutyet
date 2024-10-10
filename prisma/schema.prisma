@@ -15,22 +15,24 @@ datasource db {
 }
 
 // 
-model Game {
+model Product {
   id            String   @id @default(cuid())
-  title         String   
+  productTitle  String   
+  productType   String
   description   String   
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-
+  
   Release Release[]
 }
 
 model Release {
-  id            String   @id @default(cuid())
-  releaseDate   DateTime
-  platform      String
-  gameTitleId   String
-  gameTitle     Game     @relation(fields: [gameTitleId], references: [id] )
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id              String   @id @default(cuid())
+  releaseDate     DateTime
+  platform        String
+  productType     String
+  productTitleId  String
+  productTitle    Product  @relation(fields: [productTitleId], references: [id] )
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
