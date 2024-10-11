@@ -51,27 +51,27 @@ const ReleaseDateView: React.FC<{ viewType: ProductViewType, releases: Release[]
 const ProductView: React.FC<{ viewType: ProductViewType, product: ProductAndRelease, date?: Date }> = ({ viewType, product, date }) => {
     
     // Placeholder until we have real data
-    const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1);
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-    const twoDaysFromNow = new Date(today);
-    twoDaysFromNow.setDate(today.getDate() + 2);
-    const fourteenDaysFromNow = new Date(today);
-    fourteenDaysFromNow.setDate(today.getDate() + 14);
-    const twoMonthsFromNow = new Date(today);
-    twoMonthsFromNow.setMonth(today.getMonth() + 2);
+    // const today = new Date();
+    // const yesterday = new Date(today);
+    // yesterday.setDate(today.getDate() - 1);
+    // const tomorrow = new Date(today);
+    // tomorrow.setDate(today.getDate() + 1);
+    // const twoDaysFromNow = new Date(today);
+    // twoDaysFromNow.setDate(today.getDate() + 2);
+    // const fourteenDaysFromNow = new Date(today);
+    // fourteenDaysFromNow.setDate(today.getDate() + 14);
+    // const twoMonthsFromNow = new Date(today);
+    // twoMonthsFromNow.setMonth(today.getMonth() + 2);
 
-    const releases = new Array<Release>(
-        { releaseDate: today, platform: 'Xbox 360' },
-        { releaseDate: yesterday, platform: 'Playstation 3' },
-        { releaseDate: tomorrow, platform: 'PC' },
-        { releaseDate: twoDaysFromNow, platform: 'Nintendo' },
-        { releaseDate: fourteenDaysFromNow, platform: 'Xbox One' },
-        { releaseDate: twoMonthsFromNow, platform: 'Playstation 5' },
-    );
-    product.releases = releases;
+    // const releases = new Array<Release>(
+    //     { releaseDate: today, platform: 'Xbox 360' },
+    //     { releaseDate: yesterday, platform: 'Playstation 3' },
+    //     { releaseDate: tomorrow, platform: 'PC' },
+    //     { releaseDate: twoDaysFromNow, platform: 'Nintendo' },
+    //     { releaseDate: fourteenDaysFromNow, platform: 'Xbox One' },
+    //     { releaseDate: twoMonthsFromNow, platform: 'Playstation 5' },
+    // );
+    // product.releases = releases;
     // End Placeholder
 
     return (

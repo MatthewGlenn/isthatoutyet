@@ -1,24 +1,23 @@
 import React from 'react';
+import ProductView from "./product-view";
+import { ProductAndRelease } from '@/lib/definitions';
 
-interface WeekViewProps {
-    startingDay: number; // 0 for Sunday, 1 for Monday, etc.
-}
+import { ProductViewType } from './enums';
 
-const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-function WeekView({ startingDay }: WeekViewProps) {
-    const weekDays = Array.from({ length: 7 }, (_, i) => daysOfWeek[(startingDay + i) % 7]);
-
+const WeekView: React.FC<{ products: ProductAndRelease[] }> = ({ products }) => {
     return (
         <div>
-            <h2>Week View</h2>
-            <ul>
-                {weekDays.map((day, index) => (
-                    <li key={index}>{day}</li>
+            <h2 className="text-2xl font-bold text-white-600">Releases This Week</h2>
+            <div className="flex space-x-0">
+                {products.map((product, index) => (
+                    <div key={index}>
+                        <ProductView viewType={ProductViewType.Week} product={product} />
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
-}
+};
 
 export default WeekView;
