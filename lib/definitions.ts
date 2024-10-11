@@ -1,15 +1,19 @@
-export type Game = {
-    title: string;   
-    description: string;
-}
 
 export type Release = {
     releaseDate: Date;
     platform: string;
 }
 
-export type GameAndRelease = {
-    title: string;
-    description: string;
-    releases: Release[];
+export class ProductAndRelease {
+    title: string = "";
+    description: string = "";
+    productType: string = "";
+    releases: Release[] = [];
+
+    constructor(title: string, description: string, productType:string , releases: Release[]) {
+        this.title = title;
+        this.description = description;
+        this.productType = productType;
+        this.releases = releases;
+    }
 }
