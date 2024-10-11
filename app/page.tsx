@@ -20,7 +20,7 @@ export default async function Home() {
       <ProductView viewType={ProductViewType.Week} product={TestSingleProduct} />
       <hr />
       <h2>Day View</h2>
-      <DayView date={new Date()} products={products} />
+      <DayView date={new Date()} products={products} viewType={ProductViewType.Day} />
       <hr />
       <h2>Week View</h2>
       <WeekView products={products} />

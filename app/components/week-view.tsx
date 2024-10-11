@@ -1,7 +1,6 @@
 import React from 'react';
-import ProductView from "./product-view";
+import DayView from './day-view';
 import { ProductAndRelease } from '@/lib/definitions';
-
 import { ProductViewType } from './enums';
 
 
@@ -12,7 +11,7 @@ const WeekView: React.FC<{ products: ProductAndRelease[] }> = ({ products }) => 
             <div className="flex space-x-0">
                 {products.map((product, index) => (
                     <div key={index}>
-                        <ProductView viewType={ProductViewType.Week} product={product} />
+                        <DayView date={new Date()} products={products} viewType={ProductViewType.Week} />
                     </div>
                 ))}
             </div>

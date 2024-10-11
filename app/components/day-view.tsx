@@ -4,10 +4,10 @@ import { ProductAndRelease } from '@/lib/definitions';
 
 import { ProductViewType } from './enums';
 
-interface DayProps {
-    date: Date;
-    products: ProductAndRelease[];
-}
+// interface DayProps {
+//     date: Date;
+//     products: ProductAndRelease[];
+// }
 
 function getReleasesForDay(products: ProductAndRelease[], day: string): ProductAndRelease[] {
     const daysReleases: ProductAndRelease[] = [];
@@ -21,7 +21,7 @@ function getReleasesForDay(products: ProductAndRelease[], day: string): ProductA
     return daysReleases;
 }
 
-const Day: React.FC<DayProps> = ({ date, products }) => {
+const Day: React.FC<{ date:Date, products:ProductAndRelease[], viewType:ProductViewType }> = ({ date, products, viewType }) => {
     const day = date.toDateString();
     const daysReleases = getReleasesForDay(products, day)
 
@@ -32,7 +32,7 @@ const Day: React.FC<DayProps> = ({ date, products }) => {
                 <p>Releases this day:</p>
                 {daysReleases.map((product, index) => (
                     <div key={index}>
-                        <ProductView viewType={ProductViewType.Week} product={product} />
+                        <ProductView viewType={viewType} product={product} />
                     </div>
                 ))}
             </div>
