@@ -8,7 +8,7 @@ export default async function Home() {
       <h1>Home</h1>
       <h2>Image from public folder</h2>
       <p>Testing</p>
-      <h6>{(await getProductByWeek()).map(x=>x.productTitle)}</h6>
+      <h6>{(await getProductByWeek()).map(x=>x.title)}</h6>
     </div>
   );
 }
