@@ -58,11 +58,11 @@ const SeedData = [
                 platform: "Nintendo Switch"
             },
             {
-                releaseDate: "2024-10-11T00:00:00Z",
+                releaseDate: "2024-10-16T00:00:00Z",
                 platform: "Xbox Series X"
             },
             {
-                releaseDate: "2024-10-11T00:00:00Z",
+                releaseDate: "2024-10-13T00:00:00Z",
                 platform: "PC"
             },
             {

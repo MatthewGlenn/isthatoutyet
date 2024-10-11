@@ -4,11 +4,6 @@ import { ProductAndRelease } from '@/lib/definitions';
 
 import { ProductViewType } from './enums';
 
-// interface DayProps {
-//     date: Date;
-//     products: ProductAndRelease[];
-// }
-
 function getReleasesForDay(products: ProductAndRelease[], day: string): ProductAndRelease[] {
     const daysReleases: ProductAndRelease[] = [];
     for (const product of products) {
@@ -27,9 +22,7 @@ const Day: React.FC<{ date:Date, products:ProductAndRelease[], viewType:ProductV
 
     return (
         <div>
-            <h2>{day}</h2>
             <div style={{ display: 'flex', flexDirection: 'column', overflowX: 'auto' }}>
-                <p>Releases this day:</p>
                 {daysReleases.map((product, index) => (
                     <div key={index}>
                         <ProductView viewType={viewType} product={product} />

@@ -4,7 +4,7 @@ import { getProductByWeek } from "@/actions/action";
 // Views
 import ProductView from "./components/product-view";
 import WeekView from "./components/week-view";
-import DayView from "./components/day-view";
+// import DayView from "./components/day-view";
 // Data Structures and Classes
 import { ProductViewType } from './components/enums';
 
@@ -18,9 +18,9 @@ export default async function Home() {
       <hr />
       <h1>Product Views</h1>
       <ProductView viewType={ProductViewType.Week} product={TestSingleProduct} />
-      <hr />
+      {/* <hr />
       <h2>Day View</h2>
-      <DayView date={new Date()} products={products} viewType={ProductViewType.Day} />
+      <DayView date={new Date()} products={products} viewType={ProductViewType.Day} /> */}
       <hr />
       <h2>Week View</h2>
       <WeekView products={products} />
