@@ -30,7 +30,7 @@ function getUpcomingSunday() : Date {
     return new Date(newDate);
 }
 
-  function getLastSunday() : Date{
+function getLastSunday() : Date{
     const date = new Date();
     const today = date.getDate();
     const currentDay = date.getDay();
