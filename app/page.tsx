@@ -12,7 +12,7 @@ export default async function Home() {
       <ProductView />
       <hr />
       <p>Testing</p>
-      <h6>{(await getProductByWeek()).map(x=>x.productTitle)}</h6>
+      <h6>{(await getProductByWeek()).map(x=>x.title)}</h6>
     </div>
   );
 }
