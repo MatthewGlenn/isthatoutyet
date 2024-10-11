@@ -8,7 +8,8 @@ function getReleasesForDay(products: ProductAndRelease[], day: string): ProductA
     const daysReleases: ProductAndRelease[] = [];
     for (const product of products) {
         for (const release of product.releases) {
-            if (release.releaseDate.toDateString() === day) {
+            if (release.releaseDate.toDateString() === day &&
+                !daysReleases.includes(product)) {
                 daysReleases.push(product);
             }
         }

@@ -46,7 +46,6 @@ const WeekDayView: React.FC<{ products: ProductAndRelease[], day: Date }> = ({pr
 }
 
 const HeaderView: React.FC = () => {
-    // const days = getDaysInWeek(new Date());
     const formatDateWithoutYear = (date: Date) => {
         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     };

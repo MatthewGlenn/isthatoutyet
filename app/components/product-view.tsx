@@ -2,6 +2,34 @@ import React from 'react';
 import { ProductViewType } from './enums';
 import { ProductAndRelease, Release } from '@/lib/definitions';
 
+const getColorBasedOnPlatform = (platform: string) => {
+    if (platform.includes('PlayStation') || platform.includes('PS')) {
+        return '#003791';
+    } else if (platform.includes('Xbox')) {
+        return '#107C10';
+    } else if (platform.includes('PC') || platform.includes('Steam')) {
+        return '#000000';
+    } else if (platform.includes('Nintendo')) {
+        return '#E60012';
+    } else if (platform.includes('iOS') || platform.includes('Android') || platform.includes('Mobile')) {
+        return '#008080';
+    } else if (platform.includes('Meta') || platform.includes('Oculus') || platform.includes('VR') || platform.includes('Quest')) {
+        return '#0078D4';
+    } else {
+        return '#800080';
+    }
+}
+
+
+const PlatformView: React.FC<{ platform: string }> = ({ platform }) => {
+    const color = getColorBasedOnPlatform(platform);
+    return (
+        <div style={{ backgroundColor: color }} className="p-2 rounded-md text-white">
+            {platform}
+        </div>
+    );
+};
+
 const ReleaseDateView: React.FC<{ viewType: ProductViewType, releases: Release[], date?: Date }> = ({ viewType, releases, date }) => {
     const filteredReleases = date 
         ? releases.filter(release => release.releaseDate.toDateString() === date.toDateString()) 
@@ -12,7 +40,7 @@ const ReleaseDateView: React.FC<{ viewType: ProductViewType, releases: Release[]
         <div>
             <ul className="list-disc list-inside">
             {filteredReleases.map((release, index) => (
-                <li key={index}>{release.platform}</li>
+                <li key={index}><PlatformView platform={release.platform} /></li>
             ))}
             </ul>
         </div>
