@@ -26,7 +26,7 @@ const Day: React.FC<{ date:Date, products:ProductAndRelease[], viewType:ProductV
             <div style={{ display: 'flex', flexDirection: 'column', overflowX: 'auto' }}>
                 {daysReleases.map((product, index) => (
                     <div key={index}>
-                        <ProductView viewType={viewType} product={product} />
+                        <ProductView viewType={viewType} product={product} date={date} />
                     </div>
                 ))}
             </div>

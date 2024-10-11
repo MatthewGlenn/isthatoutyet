@@ -20,7 +20,6 @@ const getColorBasedOnPlatform = (platform: string) => {
     }
 }
 
-
 const PlatformView: React.FC<{ platform: string }> = ({ platform }) => {
     const color = getColorBasedOnPlatform(platform);
     return (
@@ -30,29 +29,36 @@ const PlatformView: React.FC<{ platform: string }> = ({ platform }) => {
     );
 };
 
+function releasesList(releases: Release[], date?: Date): Release[] {
+    if (date) {  
+        return releases.filter(release => release.releaseDate.toDateString() === date.toDateString());
+    } else {
+        return releases;
+    }
+}
+
+
 const ReleaseDateView: React.FC<{ viewType: ProductViewType, releases: Release[], date?: Date }> = ({ viewType, releases, date }) => {
-    const filteredReleases = date 
-        ? releases.filter(release => release.releaseDate.toDateString() === date.toDateString()) 
-        : releases;
+    const filteredReleases = releasesList(releases, date);
 
     if (viewType === ProductViewType.Week) {
         return (
         <div>
-            <ul className="list-disc list-inside">
+            <div>
             {filteredReleases.map((release, index) => (
-                <li key={index}><PlatformView platform={release.platform} /></li>
+                <div key={index}><PlatformView platform={release.platform} /></div>
             ))}
-            </ul>
+            </div>
         </div>
         );
     } else if (viewType === ProductViewType.Month) {
         return (
         <div>
-            <ul className="list-disc list-inside">
-            {filteredReleases.map((release, index) => (
-                <li key={index}>{release.platform}</li>
-            ))}
-            </ul>
+            <div>
+                {filteredReleases.map((release, index) => (
+                    <div key={index}><PlatformView platform={release.platform} /></div>
+                ))}
+            </div>
         </div>
         );
     } else {
