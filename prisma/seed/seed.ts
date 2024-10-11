@@ -8,6 +8,10 @@ const games = [
             {
                 releaseDate: "2024-10-07T00:00:00Z",
                 platform: "PC"
+            },
+            {
+                releaseDate: "2024-10-10T00:00:00Z",
+                platform: "PS5"
             }
         ]
     },
@@ -28,6 +32,10 @@ const games = [
             {
                 releaseDate: "2024-10-09T00:00:00Z",
                 platform: "Mobile"
+            },
+            {
+                releaseDate: "2024-10-09T00:00:00Z",
+                platform: "Nintendo Switch"
             }
         ]
     },
@@ -48,6 +56,22 @@ const games = [
             {
                 releaseDate: "2024-10-11T00:00:00Z",
                 platform: "Nintendo Switch"
+            },
+            {
+                releaseDate: "2024-10-11T00:00:00Z",
+                platform: "Xbox Series X"
+            },
+            {
+                releaseDate: "2024-10-11T00:00:00Z",
+                platform: "PC"
+            },
+            {
+                releaseDate: "2024-10-11T00:00:00Z",
+                platform: "PlayStation 5"
+            },
+            {
+                releaseDate: "2024-10-11T00:00:00Z",
+                platform: "PlayStation 4"
             }
         ]
     },
