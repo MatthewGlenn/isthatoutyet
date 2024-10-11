@@ -10,7 +10,6 @@ import { ProductViewType } from './components/enums'
 export default async function Home() {
   const products = await getProductByWeek();
   const TESTINGproduct = products[Math.floor(Math.random() * products.length)];
-  // const TESTINGproduct2 = new ProductAndRelease(TESTINGproduct.title, TESTINGproduct.description, TESTINGproduct.productType, TESTINGproduct.releases);
   return (
     <div>
       <h1>Is That Out Yet???</h1>
