@@ -9,14 +9,7 @@ export async function getProductByWeek() : Promise<ProductAndRelease[]> {
      try {
         const products = await prisma.product.findMany({
             include: {
-                Release: {
-                    where: {
-                        releaseDate: {
-                            lte: lastDay,
-                            gte: firstDay
-                        }
-                    }
-                }
+                Release: true
             }
         });
 
@@ -25,7 +18,7 @@ export async function getProductByWeek() : Promise<ProductAndRelease[]> {
                 prod.productTitle,
                 prod.description,
                 prod.productType,
-                prod.Release
+                prod.Release.map(x=>x),
             )}
         );
         
