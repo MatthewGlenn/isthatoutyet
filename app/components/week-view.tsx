@@ -64,9 +64,11 @@ const WeekView: React.FC<{ products: ProductAndRelease[] }> = ({ products }) => 
     return (
         <>
             <HeaderView />
-            <div className="flex space-x-0">
+            <div className="flex space-x-2 overflow-x-auto snap-x snap-mandatory sm:snap-center">
                 {days.map((day, index) => (
-                    <WeekDayView key={index} products={products} day={day} />
+                    <div key={index} className="snap-start sm:snap-center">
+                        <WeekDayView products={products} day={day} />
+                    </div>
                 ))}
             </div>
         </>
