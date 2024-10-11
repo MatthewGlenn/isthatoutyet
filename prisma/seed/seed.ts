@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient()
-const games = [
+const SeedData = [
     {
         title: "Adventure Awaits",
         description: "Embark on an epic journey through enchanted forests and mythical lands.",
@@ -89,102 +89,65 @@ const games = [
 
 
 async function main() {
-    const product = await prisma.product.createManyAndReturn({
+    const products: {
+        createdAt: Date;
+        description: string;
+        id: string;
+        productTitle: string;
+        productType: string;
+        updatedAt: Date
+    }[] = await prisma.product.createManyAndReturn({
         data: [
         {
-            productTitle: games[0].title,
-            description: games[0].description,
+            productTitle: SeedData[0].title,
+            description: SeedData[0].description,
             productType: "game"
         },
         {
-            productTitle: games[1].title,
-            description: games[1].description,
+            productTitle: SeedData[1].title,
+            description: SeedData[1].description,
             productType: "game"
         },
         {
-            productTitle: games[2].title,
-            description: games[2].description,
+            productTitle: SeedData[2].title,
+            description: SeedData[2].description,
             productType: "game"
         },
         {
-            productTitle: games[3].title,
-            description: games[3].description,
+            productTitle: SeedData[3].title,
+            description: SeedData[3].description,
             productType: "game"
         },
         {
-            productTitle: games[4].title,
-            description: games[4].description,
+            productTitle: SeedData[4].title,
+            description: SeedData[4].description,
             productType: "game"
         },
         {
-            productTitle: games[5].title,
-            description: games[5].description,
+            productTitle: SeedData[5].title,
+            description: SeedData[5].description,
             productType: "game"
         },
         ]
     });
-    let release = await prisma.release.upsert({
-        where: { id: "1" },
-        update: {},
-        create: {
-            platform: games[0].releases[0].platform,
-            productType: "game",
-            releaseDate: games[0].releases[0].releaseDate,
-            productTitleId: product[0].id,
-        }
-    });
-    release = await prisma.release.upsert({
-        where: { id: "1" },
-        update: {},
-        create: {
-            platform: games[1].releases[0].platform,
-            productType: "game",
-            releaseDate: games[1].releases[0].releaseDate,
-            productTitleId: product[1].id,
-        }
-    });
-    release = await prisma.release.upsert({
-        where: { id: "1" },
-        update: {},
-        create: {
-            platform: games[2].releases[0].platform,
-            productType: "game",
-            releaseDate: games[2].releases[0].releaseDate,
-            productTitleId: product[2].id,
-        }
-    });
-    release = await prisma.release.upsert({
-        where: { id: "1" },
-        update: {},
-        create: {
-            platform: games[3].releases[0].platform,
-            productType: "game",
-            releaseDate: games[3].releases[0].releaseDate,
-            productTitleId: product[3].id,
-        }
-    });
-    release = await prisma.release.upsert({
-        where: { id: "1" },
-        update: {},
-        create: {
-            platform: games[4].releases[0].platform,
-            productType: "game",
-            releaseDate: games[4].releases[0].releaseDate,
-            productTitleId: product[4].id,
-        }
-    });
-    release = await prisma.release.upsert({
-        where: { id: "1" },
-        update: {},
-        create: {
-            platform: games[5].releases[0].platform,
-            productType: "game",
-            releaseDate: games[5].releases[0].releaseDate,
-            productTitleId: product[5].id,
-        }
-    });
+
+    let index = 0;
+    SeedData.forEach(seed => {
+        seed.releases.forEach(async release => {
+            await prisma.release.create({
+                data: {
+                    platform: release.platform,
+                    productType: "game",
+                    releaseDate: release.releaseDate,
+                    productTitleId: products[index].id,
+                }
+            })
+        })
+        index++;
+    })
+
     
-    console.log({product, release});
+    console.log({product: products});
 }
 
 main()
