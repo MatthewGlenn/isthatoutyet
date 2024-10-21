@@ -4,7 +4,7 @@ import { getProductByWeek } from "@/actions/action";
 // Views
 import ProductView from "./components/product-view";
 import WeekView from "./components/week-view";
-import DayView from "./components/day-view";
+// import DayView from "./components/day-view";
 // Data Structures and Classes
 import { ProductViewType } from './components/enums';
 
@@ -13,26 +13,13 @@ export default async function Home() {
   // TODO: Remove and ProductView this when we have a working WeekView
   const TestSingleProduct = products[Math.floor(Math.random() * products.length)];
   return (
-    <div>
-      <h1>Is That Out Yet???</h1>
-      <hr />
-      <h1>Product Views</h1>
-      <ProductView viewType={ProductViewType.Week} product={TestSingleProduct} />
-      <hr />
-      <h2>Day View</h2>
-      <DayView date={new Date()} products={products} />
-      <hr />
-      <h2>Week View</h2>
+    <div className="min-h-screen bg-gradient-to-r from-gray-800 via-gray-900 to-black p-4">
+      <h1 className="text-4xl font-bold text-center text-blue-300 my-4">Is That Out Yet???</h1>
+      <h2 className="text-xl font-semibold text-center text-blue-400 my-2">Week View</h2>
       <WeekView products={products} />
-      <hr />
-      <h2>Product Page</h2>
+      <h1 className="text-2xl font-semibold text-center text-blue-400 my-2">Product Page</h1>
       <ProductView viewType={ProductViewType.ProductPage} product={TestSingleProduct} />
-      <hr />
-      <h2>Month View</h2>
-      <ProductView viewType={ProductViewType.Month} product={TestSingleProduct} />
-      <hr />
-      <p>Testing</p>
-      <h6>{(await getProductByWeek()).map(x=>x.title)}</h6>
+      <h2 className="text-xl font-semibold text-center text-blue-400 my-2">Month View</h2>
     </div>
   );
 }
