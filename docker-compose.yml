@@ -20,14 +20,15 @@ services:
             - node_modules
         - action: rebuild
           path: package.json
-  db:
-    container_name: isthatoutyet-db
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_PASSWORD: example
-    ports:
-      - "5432:5432"
-    restart: always
-    volumes:
-      - ${DATABASE_VOLUME}:/var/lib/postgresql/data
+  # Include if you are self hosting or testing with a local database
+  # db:
+  #   container_name: isthatoutyet-db
+  #   image: postgres:15-alpine
+  #   environment:
+  #     POSTGRES_PASSWORD: example
+  #   ports:
+  #     - "5432:5432"
+  #   restart: always
+  #   volumes:
+  #     - ${DATABASE_VOLUME}:/var/lib/postgresql/data
       
