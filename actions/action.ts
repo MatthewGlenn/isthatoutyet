@@ -28,7 +28,7 @@ export async function getProductByWeek() : Promise<ProductAndRelease[]> {
             }
         });
 
-        const data = products.map(prod=>{
+        let data = products.map(prod=>{
             return new ProductAndRelease (
                 prod.productTitle,
                 prod.description,
@@ -37,12 +37,16 @@ export async function getProductByWeek() : Promise<ProductAndRelease[]> {
             )}
         );
 
-        return data || [{
-            title: 'no game games found',
-            description: 'no games found',
-            productType: 'game',
-            releases: []
-        }];
+        if(data.length==0) {
+            data = [{
+                title: 'no game games found',
+                description: 'no games found',
+                productType: 'game',
+                releases: []
+            }];
+        }
+
+        return data;
      }
      catch (error) {
         console.log(error);
