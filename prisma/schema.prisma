@@ -15,7 +15,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// 
 model Product {
   id            String   @id @default(cuid())
   productTitle  String   
@@ -34,6 +33,22 @@ model Release {
   productType     String
   productTitleId  String
   productTitle    Product  @relation(fields: [productTitleId], references: [id] )
+  createdAt       DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime @updatedAt @db.Timestamptz(3)
+}
+
+model VideoGame {
+  id              String   @id @default(cuid())
+  name            String
+  image           String?
+  score           Int?
+  genre           String?
+  description     String?
+  datePublished   DateTime?
+  price           Float?
+  onSale          Boolean?
+  storeUrl        String?
+  boxArtUrl       String?
   createdAt       DateTime @default(now()) @db.Timestamptz(3)
   updatedAt       DateTime @updatedAt @db.Timestamptz(3)
 }
