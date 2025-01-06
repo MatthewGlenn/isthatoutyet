@@ -9,8 +9,6 @@ services:
     restart: always
     environment:
       - DATABASE_URL=${DATABASE_URL}
-    depends_on:
-      - db
     develop:
       watch:
         - action: sync

@@ -1,139 +1,120 @@
 import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
+
+const getRandomDate = () => {
+    const today = new Date();
+    const randomDays = Math.floor(Math.random() * 5) + 1;
+    today.setDate(today.getDate() + randomDays);
+    return today.toISOString();
+};
+
+const getRandomName = () => {
+    const adjectives = ["Epic", "Mystical", "Galactic", "Zombie", "Fantasy", "Adventure", "Racing"];
+    const nouns = ["Journey", "Puzzles", "Odyssey", "Survival", "Realm", "Awaits", "Rivals"];
+    const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+    const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+    return `${randomAdjective} ${randomNoun}`;
+};
+
 const SeedData = [
     {
-        title: "Adventure Awaits",
+        title: getRandomName(),
         description: "Embark on an epic journey through enchanted forests and mythical lands.",
         releases: [
             {
-                releaseDate: "2024-10-07T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "PC"
             },
             {
-                releaseDate: "2024-10-10T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "PS5"
             }
         ]
     },
     {
-        title: "Racing Rivals",
+        title: getRandomName(),
         description: "Challenge your friends in high-speed racing on dynamic tracks.",
         releases: [
             {
-                releaseDate: "2024-10-08T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "Xbox One"
             }
         ]
     },
     {
-        title: "Mystical Puzzles",
+        title: getRandomName(),
         description: "Solve intricate puzzles to unlock the secrets of an ancient civilization.",
         releases: [
             {
-                releaseDate: "2024-10-09T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "Mobile"
             },
             {
-                releaseDate: "2024-10-09T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "Nintendo Switch"
             }
         ]
     },
     {
-        title: "Galactic Odyssey",
+        title: getRandomName(),
         description: "Explore the universe and engage in epic space battles.",
         releases: [
             {
-                releaseDate: "2024-10-10T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "PlayStation 5"
             }
         ]
     },
     {
-        title: "Zombie Survival",
+        title: getRandomName(),
         description: "Survive the apocalypse by scavenging for resources and crafting weapons.",
         releases: [
             {
-                releaseDate: "2024-10-11T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "Nintendo Switch"
             },
             {
-                releaseDate: "2024-10-16T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "Xbox Series X"
             },
             {
-                releaseDate: "2024-10-13T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "PC"
             },
             {
-                releaseDate: "2024-10-09T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "PlayStation 5"
             },
             {
-                releaseDate: "2024-10-11T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "PlayStation 4"
             }
         ]
     },
     {
-        title: "Fantasy Realm",
+        title: getRandomName(),
         description: "Dive into a rich, story-driven RPG with stunning graphics.",
         releases: [
             {
-                releaseDate: "2024-10-12T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "PC"
             }
         ]
     }
-]
-
+];
 
 async function main() {
-    const products: {
-        createdAt: Date;
-        description: string;
-        id: string;
-        productTitle: string;
-        productType: string;
-        updatedAt: Date
-    }[] = await prisma.product.createManyAndReturn({
-        data: [
-        {
-            productTitle: SeedData[0].title,
-            description: SeedData[0].description,
+    const products = await prisma.product.createManyAndReturn({
+        data: SeedData.map(seed => ({
+            productTitle: seed.title,
+            description: seed.description,
             productType: "game"
-        },
-        {
-            productTitle: SeedData[1].title,
-            description: SeedData[1].description,
-            productType: "game"
-        },
-        {
-            productTitle: SeedData[2].title,
-            description: SeedData[2].description,
-            productType: "game"
-        },
-        {
-            productTitle: SeedData[3].title,
-            description: SeedData[3].description,
-            productType: "game"
-        },
-        {
-            productTitle: SeedData[4].title,
-            description: SeedData[4].description,
-            productType: "game"
-        },
-        {
-            productTitle: SeedData[5].title,
-            description: SeedData[5].description,
-            productType: "game"
-        },
-        ]
+        }))
     });
 
     let index = 0;
-    SeedData.forEach(seed => {
-        seed.releases.forEach(async release => {
+    for (const seed of SeedData) {
+        for (const release of seed.releases) {
             await prisma.release.create({
                 data: {
                     platform: release.platform,
@@ -141,21 +122,20 @@ async function main() {
                     releaseDate: release.releaseDate,
                     productTitleId: products[index].id,
                 }
-            })
-        })
+            });
+        }
         index++;
-    })
+    }
 
-    
-    console.log({product: products});
+    console.log({ product: products });
 }
 
 main()
   .then(async () => {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   })
   .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });
