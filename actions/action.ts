@@ -8,8 +8,8 @@ import { DateTime } from 'luxon';
 const noDate = DateTime.fromMillis(0).toString();
 
 export async function getProductByWeek() : Promise<ProductAndRelease[]> {
-    const firstDay = getUpcomingSunday();
-    const lastDay = getLastSunday();
+    const firstDay = getLastSunday();
+    const lastDay = getUpcomingSunday();
      try {
         const products = await prisma.product.findMany({
             include: {
