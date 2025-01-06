@@ -1,0 +1,45 @@
+### GET request to example server
+GET http://localhost:3000/api/route/
+###
+
+### Send POST request with json body
+POST http://localhost:3000/api/load/
+Content-Type: application/json
+
+{
+        "name": "Mario & Luigi: Brothership",
+        "Release Date": "Nov 7, 2024",
+        "Platforms": "Switch",
+        "Score": null,
+        "genre": "Action, RPG",
+        "image": "imageurl",
+        "Box Art": "https://img.opencritic.com/game/undefined/EOhy6JbD.jpg",
+        "onSale": false
+ }
+
+### Send POST request with multiple objects ###
+POST http://localhost:3000/api/load/
+Content-Type: application/json
+
+[
+  {
+  "name": "Mario & Luigi: Brothership",
+  "Release Date": "Nov 7, 2024",
+  "Platforms": "Switch",
+  "Score": null,
+  "genre": "Action, RPG",
+  "image": "imageurl",
+  "Box Art": "https://img.opencritic.com/game/undefined/EOhy6JbD.jpg",
+  "onSale": false
+  },
+  {
+  "name": "BattleStar Galatrica",
+  "Release Date": "Nov 10, 2024",
+  "Platforms": "Switch",
+  "Score": null,
+  "genre": "Action, RPG",
+  "image": "imageurl",
+  "Box Art": "https://img.opencritic.com/game/undefined/EOhy6JbD.jpg",
+  "onSale": true
+  }
+]

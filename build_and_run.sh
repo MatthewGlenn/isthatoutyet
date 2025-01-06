@@ -6,7 +6,7 @@ if [ "$1" = "clean" ]; then
     npm i
     export DATABASE_URL="postgresql://postgres:example@localhost:5432/dev-db"
     docker compose up --build --detach
-    npx prisma migrate reset -f
+    npx prisma migrate deploy
     docker compose down
     DATABASE_URL="postgresql://postgres:example@db:5432/dev-db"
 fi
