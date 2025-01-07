@@ -106,6 +106,32 @@ export async function checkIfDatabaseLoaded() : Promise<boolean> {
 
 export async function loadDatafromScrapper(videoGame: VideoGame) {
     try {
+        const unique = await prisma.videoGame.findFirst({
+            where: { name: videoGame.name},
+            select: { id: true }
+        });
+
+        if(unique !== null) {
+            await prisma.videoGame.update({
+                where: {
+                    id: unique.id
+                },
+                data: {
+                    name: videoGame.name,
+                    description: videoGame.description,
+                    boxArtUrl: videoGame.boxArtUrl,
+                    genre: videoGame.genre,
+                    image: videoGame.image,
+                    onSale: videoGame.onSale,
+                    price: videoGame.price,
+                    datePublished: videoGame.datePublished,
+                    score: videoGame.score,
+                    storeUrl: videoGame.storeUrl
+                }
+            });
+            return;
+        }
+
         await prisma.videoGame.create({
             data: {
                 name: videoGame.name,
@@ -127,23 +153,35 @@ export async function loadDatafromScrapper(videoGame: VideoGame) {
     }
 }
 
-export async function loadMultipleDatafromScrapper(videoGame: VideoGame[]) {
+export async function loadMultipleDatafromScrapper(videoGames: VideoGame[]) {
     try {
-        const videoGames = videoGame.map((game) =>
-            ({
-                name: game.name,
-                description: game.description,
-                boxArtUrl: game.boxArtUrl,
-                genre: game.genre,
-                image: game.image,
-                onSale: game.onSale,
-                price: game.price,
-                datePublished: game.datePublished,
-                score: game.score,
-                storeUrl: game.storeUrl
-            })
-        );
 
+        const filters = videoGames.map(game=>game.name);
+
+        const records = await prisma.videoGame.findMany({
+                where: {
+                    ...(filters
+                    ? {
+                        OR: [ {
+                            name: {
+                                in: filters
+                            }
+                        }]
+                        }
+                    : {})
+                },
+            });
+
+        if(records !== null) {
+            const toBeDeleted = records.map(rec=>rec.id);
+            await prisma.videoGame.deleteMany({
+                where: {
+                    id: {
+                        in: toBeDeleted
+                    }
+                }
+            })
+        }
 
         await prisma.videoGame.createMany({
             data: videoGames
