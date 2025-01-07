@@ -14,7 +14,8 @@ Content-Type: application/json
         "genre": "Action, RPG",
         "image": "imageurl",
         "Box Art": "https://img.opencritic.com/game/undefined/EOhy6JbD.jpg",
-        "onSale": false
+        "onSale": false,
+        "price": 10
  }
 
 ### Send POST request with multiple objects ###
