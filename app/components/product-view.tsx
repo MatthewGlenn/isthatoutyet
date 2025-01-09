@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProductViewType } from './enums';
-import { ProductAndRelease, Release } from '@/lib/definitions';
+import { Release, VideoGameAndRelease} from '@/lib/definitions';
 
 const getColorBasedOnPlatform = (platform: string) => {
     if (platform.includes('PlayStation') || platform.includes('PS')) {
@@ -74,14 +74,14 @@ const ReleaseDateView: React.FC<{ viewType: ProductViewType, releases: Release[]
     }
 };
 
-const ProductView: React.FC<{ viewType: ProductViewType, product: ProductAndRelease, date?: Date }> = ({ viewType, product, date }) => {
+const ProductView: React.FC<{ viewType: ProductViewType, game: VideoGameAndRelease, date?: Date }> = ({ viewType, game, date }) => {
     return (
         <div className="p-4 bg-gray-900 text-white">
             <div className="bg-gray-800 p-3 rounded-md shadow-sm">
-            <h3 className="text-lg font-semibold mb-1">{product.title}</h3>
-            <ReleaseDateView viewType={viewType} releases={product.releases} date={date} />
-            <p className="text-gray-400 mb-1">Type: {product.productType}</p>
-            <p className="text-gray-300 text-sm">{product.description}</p>
+            <h3 className="text-lg font-semibold mb-1">{game.name}</h3>
+            <ReleaseDateView viewType={viewType} releases={game.releases} date={date} />
+            <p className="text-gray-400 mb-1">Type: {game.productType}</p>
+            <p className="text-gray-300 text-sm">{game.description}</p>
             </div>
         </div>
     );

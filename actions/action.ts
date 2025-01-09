@@ -1,17 +1,17 @@
 "use server";
 
 import prisma from '@/lib/db';
-import { ProductAndRelease, VideoGame } from '@/lib/definitions';
+import { VideoGame, VideoGameAndRelease} from '@/lib/definitions';
 import { GameUS } from 'nintendo-switch-eshop';
 import { DateTime } from 'luxon';
 
 const noDate = DateTime.fromMillis(0).toString();
 
-export async function getProductByWeek() : Promise<ProductAndRelease[]> {
-    const firstDay = getUpcomingSunday();
-    const lastDay = getLastSunday();
+export async function getProductByWeek() : Promise<VideoGameAndRelease[]> {
+    const firstDay = getLastSunday();
+    const lastDay = getUpcomingSunday();
      try {
-        const products = await prisma.product.findMany({
+        const games = await prisma.videoGame.findMany({
             include: {
                 Release: true
             },
@@ -28,18 +28,18 @@ export async function getProductByWeek() : Promise<ProductAndRelease[]> {
             }
         });
 
-        let data = products.map(prod=>{
-            return new ProductAndRelease (
-                prod.productTitle,
-                prod.description,
-                prod.productType,
-                prod.Release.map(x=>x),
+        let data = games.map(game=>{
+            return new VideoGameAndRelease (
+                game.name,
+                (game.description ?? ""),
+                "VideoGame",
+                game.Release.map(x=>x),
             )}
         );
 
         if(data.length==0) {
             data = [{
-                title: 'no game games found',
+                name: 'no game games found',
                 description: 'no games found',
                 productType: 'game',
                 releases: []
@@ -129,6 +129,17 @@ export async function loadDatafromScrapper(videoGame: VideoGame) {
                     storeUrl: videoGame.storeUrl
                 }
             });
+
+            // const release: Release = {
+            //     platform: videoGame.platform?.[0].toString(),
+            //     productTitleId: unique.id,
+            //     productType: "Videogame",
+            //     ReleaseDate: videoGame.datePublished
+            // }
+
+            // await prisma.release.create({
+            //     data:
+            // })
             return;
         }
 
@@ -144,6 +155,9 @@ export async function loadDatafromScrapper(videoGame: VideoGame) {
                 datePublished: videoGame.datePublished,
                 score: videoGame.score,
                 storeUrl: videoGame.storeUrl
+            },
+            select: {
+                id: true
             }
         });
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import DayView from './day-view';
-import { ProductAndRelease } from '@/lib/definitions';
+import { VideoGameAndRelease } from '@/lib/definitions';
 import { ProductViewType } from './enums';
 
 
@@ -18,8 +18,8 @@ function getDaysInWeek(date: Date): Date[] {
     return days;
 }
 
-function getProductsByDay(products: ProductAndRelease[], day: Date): ProductAndRelease[] {
-    const productsByDay: ProductAndRelease[] = [];
+function getProductsByDay(products: VideoGameAndRelease[], day: Date): VideoGameAndRelease[] {
+    const productsByDay: VideoGameAndRelease[] = [];
     products.forEach(product => {
         product.releases.forEach(release => {
             if (release.releaseDate.toDateString() === day.toDateString()) {
@@ -30,7 +30,7 @@ function getProductsByDay(products: ProductAndRelease[], day: Date): ProductAndR
     return productsByDay;
 }
 
-const WeekDayView: React.FC<{ products: ProductAndRelease[], day: Date }> = ({products, day}) => {
+const WeekDayView: React.FC<{ products: VideoGameAndRelease[], day: Date }> = ({products, day}) => {
     const productForDay = getProductsByDay(products, day);
 
     if (productForDay.length === 0) {
@@ -59,7 +59,7 @@ const HeaderView: React.FC = () => {
     );
 };
 
-const WeekView: React.FC<{ products: ProductAndRelease[] }> = ({ products }) => {
+const WeekView: React.FC<{ products: VideoGameAndRelease[] }> = ({ products }) => {
     const days = getDaysInWeek(new Date());
     return (
         <>

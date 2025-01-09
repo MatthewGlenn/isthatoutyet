@@ -18,7 +18,7 @@ export default async function Home() {
       <h2 className="text-xl font-semibold text-center text-blue-400 my-2">Week View</h2>
       <WeekView products={products} />
       <h1 className="text-2xl font-semibold text-center text-blue-400 my-2">Product Page</h1>
-      <ProductView viewType={ProductViewType.ProductPage} product={TestSingleProduct} />
+      <ProductView viewType={ProductViewType.ProductPage} game={TestSingleProduct} />
       <h2 className="text-xl font-semibold text-center text-blue-400 my-2">Month View</h2>
     </div>
   );

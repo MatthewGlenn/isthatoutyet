@@ -1,11 +1,11 @@
 import React from 'react';
 import ProductView from "./product-view";
-import { ProductAndRelease } from '@/lib/definitions';
+import { VideoGameAndRelease } from '@/lib/definitions';
 
 import { ProductViewType } from './enums';
 
-function getReleasesForDay(products: ProductAndRelease[], day: string): ProductAndRelease[] {
-    const daysReleases: ProductAndRelease[] = [];
+function getReleasesForDay(products: VideoGameAndRelease[], day: string): VideoGameAndRelease[] {
+    const daysReleases: VideoGameAndRelease[] = [];
     for (const product of products) {
         for (const release of product.releases) {
             if (release.releaseDate.toDateString() === day &&
@@ -17,7 +17,7 @@ function getReleasesForDay(products: ProductAndRelease[], day: string): ProductA
     return daysReleases;
 }
 
-const Day: React.FC<{ date:Date, products:ProductAndRelease[], viewType:ProductViewType }> = ({ date, products, viewType }) => {
+const Day: React.FC<{ date:Date, products:VideoGameAndRelease[], viewType:ProductViewType }> = ({ date, products, viewType }) => {
     const day = date.toDateString();
     const daysReleases = getReleasesForDay(products, day)
 
@@ -26,7 +26,7 @@ const Day: React.FC<{ date:Date, products:ProductAndRelease[], viewType:ProductV
             <div style={{ display: 'flex', flexDirection: 'column', overflowX: 'auto' }}>
                 {daysReleases.map((product, index) => (
                     <div key={index}>
-                        <ProductView viewType={viewType} product={product} date={date} />
+                        <ProductView viewType={viewType} game={product} date={date} />
                     </div>
                 ))}
             </div>
