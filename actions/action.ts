@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from '@/lib/db';
-import { VideoGame, VideoGameAndRelease} from '@/lib/definitions';
+import { VideoGame, VideoGameAndRelease, Release } from '@/lib/definitions';
 import { GameUS } from 'nintendo-switch-eshop';
 import { DateTime } from 'luxon';
 
@@ -130,20 +130,25 @@ export async function loadDatafromScrapper(videoGame: VideoGame) {
                 }
             });
 
-            // const release: Release = {
-            //     platform: videoGame.platform?.[0].toString(),
-            //     productTitleId: unique.id,
-            //     productType: "Videogame",
-            //     ReleaseDate: videoGame.datePublished
-            // }
+            const releases = videoGame.releases?.map(game => {
+                return {
+                    platform: game?.platform ?? "no platform",
+                    productTitleId: unique.id,
+                    productType: "game",
+                    releaseDate: game?.releaseDate.toLocaleDateString() ?? noDate
+                }
+            }) ?? [];
 
-            // await prisma.release.create({
-            //     data:
-            // })
+
+            if(releases.length > 0) {
+                await prisma.release.createMany({
+                    data: releases
+                });
+            }
             return;
         }
 
-        await prisma.videoGame.create({
+        const id = await prisma.videoGame.create({
             data: {
                 name: videoGame.name,
                 description: videoGame.description,
@@ -160,6 +165,23 @@ export async function loadDatafromScrapper(videoGame: VideoGame) {
                 id: true
             }
         });
+        const releases = videoGame.releases?.map(game => {
+            return {
+                platform: game?.platform ?? "no platform",
+                productTitleId: id.id,
+                productType: "game",
+                releaseDate: game?.releaseDate.toLocaleDateString() ?? noDate
+            }
+        }) ?? [];
+
+
+        if(releases.length > 0) {
+            await prisma.release.createMany({
+                data: releases
+            });
+        }
+        return;
+
     }
     catch (error) {
         console.log(error);
@@ -197,9 +219,36 @@ export async function loadMultipleDatafromScrapper(videoGames: VideoGame[]) {
             })
         }
 
-        await prisma.videoGame.createMany({
+        const ids = await prisma.videoGame.createManyAndReturn({
             data: videoGames
         });
+
+        const releases: Release[] = [];
+        ids.forEach((game) => {
+            const vid = videoGames.find(x=>x.name == game.name) ?? {
+                releases: []
+            };
+            const arr : Release[] = vid.releases?.map((x) => {
+                const rel : Release = {
+                    platform: x?.platform ?? "no platform",
+                    productTitleId: game.id,
+                    productType: "game",
+                    releaseDate: x?.releaseDate ?? new Date(noDate)
+                };
+                return rel;
+            }) ?? [];
+
+            if(arr.length > 0) {
+                arr.forEach(x => releases.push(x));
+            }
+
+        });
+        if(releases.length > 0) {
+            await prisma.release.createMany({
+                data: releases
+            });
+        }
+        return;
     }
     catch (error) {
         console.log(error);
