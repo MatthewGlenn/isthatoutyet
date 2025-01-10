@@ -17,13 +17,13 @@ datasource db {
 
 model Product {
   id            String   @id @default(cuid())
-  productTitle  String   
+  productTitle  String
   productType   String
-  description   String   
+  description   String
   createdAt     DateTime @default(now()) @db.Timestamptz(3)
   updatedAt     DateTime @updatedAt @db.Timestamptz(3)
-  
-  Release Release[]
+
+  // Release Release[]
 }
 
 model Release {
@@ -32,7 +32,7 @@ model Release {
   platform        String
   productType     String
   productTitleId  String
-  productTitle    Product  @relation(fields: [productTitleId], references: [id] )
+  productTitle    VideoGame  @relation(fields: [productTitleId], references: [id] )
   createdAt       DateTime @default(now()) @db.Timestamptz(3)
   updatedAt       DateTime @updatedAt @db.Timestamptz(3)
 }
@@ -51,4 +51,6 @@ model VideoGame {
   boxArtUrl       String?
   createdAt       DateTime @default(now()) @db.Timestamptz(3)
   updatedAt       DateTime @updatedAt @db.Timestamptz(3)
+
+  Release Release[]
 }

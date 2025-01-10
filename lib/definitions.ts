@@ -7,25 +7,27 @@ export type Release = {
     productTitleId: string
 }
 
-export class ProductAndRelease {
-    title: string = "";
+export class VideoGameAndRelease {
+    name: string = "";
     description: string = "";
     productType: string = "";
     releases: Release[] = [];
 
     constructor(title: string, description: string, productType:string , releases: Release[]) {
-        this.title = title;
+        this.name = title;
         this.description = description;
         this.productType = productType;
         this.releases = releases;
     }
+
 }
 
-export type Product = {
-    productTitle: string
-    productType: string
-    description: string
-}
+const ReleaseObject = z.object({
+    releaseDate: z.date(),
+    platform: z.string(),
+    productType: z.string().optional(),
+    productTitleId: z.string().optional(),
+}).optional();
 
 export const VideoGameObject = z.object({
     name: z.string(),
@@ -33,13 +35,15 @@ export const VideoGameObject = z.object({
     score: z.number().min(0).max(100).optional(),
     genre: z.string(),
     description: z.string().optional(),
-    datePublished: z.date().optional(),
     price: z.number().optional(),
+    sale_price: z.number().optional(),
     onSale: z.boolean(),
     storeUrl: z.string().optional(),
-    boxArtUrl: z.string().optional()
+    boxArtUrl: z.string().optional(),
+    releases: ReleaseObject.array().optional(),
+    datePublished: z.date().optional(),
 });
 
 export const VideoGameObjects = VideoGameObject.array();
 
- export type VideoGame = z.infer<typeof VideoGameObject>;
+export type VideoGame = z.infer<typeof VideoGameObject>;

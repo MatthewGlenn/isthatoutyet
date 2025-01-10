@@ -1,17 +1,29 @@
 import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
+
+function getRandomDate() {
+    const date = new Date();
+    const today = date.getDate();
+    const currentDay = date.getDay();
+    const lastSunday = date.setDate(today - (currentDay || 7));
+    const upComingSunday = date.setDate(today - currentDay + 7);
+    const fromTime = new Date(lastSunday).getTime();
+    const toTime = new Date(upComingSunday).getTime();
+    return new Date(fromTime + Math.random() * (toTime - fromTime));
+}
+
 const SeedData = [
     {
         title: "Adventure Awaits",
         description: "Embark on an epic journey through enchanted forests and mythical lands.",
         releases: [
             {
-                releaseDate: "2024-10-07T00:00:00Z",
-                platform: "PC"
+                platform: "PC",
+                releaseDate: getRandomDate(),
             },
             {
-                releaseDate: "2024-10-10T00:00:00Z",
-                platform: "PS5"
+                platform: "PS5",
+                releaseDate: getRandomDate(),
             }
         ]
     },
@@ -20,7 +32,7 @@ const SeedData = [
         description: "Challenge your friends in high-speed racing on dynamic tracks.",
         releases: [
             {
-                releaseDate: "2024-10-08T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "Xbox One"
             }
         ]
@@ -30,11 +42,11 @@ const SeedData = [
         description: "Solve intricate puzzles to unlock the secrets of an ancient civilization.",
         releases: [
             {
-                releaseDate: "2024-10-09T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "Mobile"
             },
             {
-                releaseDate: "2024-10-09T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "Nintendo Switch"
             }
         ]
@@ -44,7 +56,7 @@ const SeedData = [
         description: "Explore the universe and engage in epic space battles.",
         releases: [
             {
-                releaseDate: "2024-10-10T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "PlayStation 5"
             }
         ]
@@ -54,23 +66,23 @@ const SeedData = [
         description: "Survive the apocalypse by scavenging for resources and crafting weapons.",
         releases: [
             {
-                releaseDate: "2024-10-11T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "Nintendo Switch"
             },
             {
-                releaseDate: "2024-10-16T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "Xbox Series X"
             },
             {
-                releaseDate: "2024-10-13T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "PC"
             },
             {
-                releaseDate: "2024-10-09T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "PlayStation 5"
             },
             {
-                releaseDate: "2024-10-11T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "PlayStation 4"
             }
         ]
@@ -80,7 +92,7 @@ const SeedData = [
         description: "Dive into a rich, story-driven RPG with stunning graphics.",
         releases: [
             {
-                releaseDate: "2024-10-12T00:00:00Z",
+                releaseDate: getRandomDate(),
                 platform: "PC"
             }
         ]
@@ -89,45 +101,46 @@ const SeedData = [
 
 
 async function main() {
-    const products: {
-        createdAt: Date;
-        description: string;
+    const videoGames: {
+        name: string;
         id: string;
-        productTitle: string;
-        productType: string;
-        updatedAt: Date
-    }[] = await prisma.product.createManyAndReturn({
+        image: string | null;
+        score: number | null;
+        genre: string | null;
+        description: string | null;
+        datePublished: Date | null;
+        price: number | null;
+        onSale: boolean | null;
+        storeUrl: string | null;
+        boxArtUrl: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+    }[] = await prisma.videoGame.createManyAndReturn({
         data: [
-        {
-            productTitle: SeedData[0].title,
-            description: SeedData[0].description,
-            productType: "game"
-        },
-        {
-            productTitle: SeedData[1].title,
-            description: SeedData[1].description,
-            productType: "game"
-        },
-        {
-            productTitle: SeedData[2].title,
-            description: SeedData[2].description,
-            productType: "game"
-        },
-        {
-            productTitle: SeedData[3].title,
-            description: SeedData[3].description,
-            productType: "game"
-        },
-        {
-            productTitle: SeedData[4].title,
-            description: SeedData[4].description,
-            productType: "game"
-        },
-        {
-            productTitle: SeedData[5].title,
-            description: SeedData[5].description,
-            productType: "game"
-        },
+            {
+                name: SeedData[0].title,
+                description: SeedData[0].description,
+            },
+            {
+                name: SeedData[1].title,
+                description: SeedData[1].description,
+            },
+            {
+                name: SeedData[2].title,
+                description: SeedData[2].description,
+            },
+            {
+                name: SeedData[3].title,
+                description: SeedData[3].description,
+            },
+            {
+                name: SeedData[4].title,
+                description: SeedData[4].description,
+            },
+            {
+                name: SeedData[5].title,
+                description: SeedData[5].description,
+            },
         ]
     });
 
@@ -139,15 +152,12 @@ async function main() {
                     platform: release.platform,
                     productType: "game",
                     releaseDate: release.releaseDate,
-                    productTitleId: products[index].id,
+                    productTitleId: videoGames[index].id,
                 }
             })
         })
         index++;
     })
-
-    
-    console.log({product: products});
 }
 
 main()
