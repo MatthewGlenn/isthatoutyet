@@ -1,17 +1,16 @@
 #!/bin/sh
-# This stores the all the intellisense for prisma to undertand the schema
-npx prisma generate
 
 if [ "$1" = "clean" ]; then
-    echo "Starting from a clean slate"
+    echo "=============================="
+    echo "🧹 Starting from a clean slate"
+    echo "=============================="
+    echo "🔄 Generate intellisense for prisma to undertand the schema..."
+    npx prisma generate
+    echo "🚀 Take down container..."
     docker compose down
-    docker volume rm isthatoutyet-web isthatoutyet-db
-    npm i
-    export DATABASE_URL="postgresql://postgres:example@localhost:5432/dev-db"
-    docker compose up --build --detach
-    npx prisma migrate deploy
-    docker compose down
-    DATABASE_URL="postgresql://postgres:example@db:5432/dev-db"
+    echo "🧹 Prune containers..."
+    docker prune
 fi
 
+echo "🚀 Building and starting containers with watch..."
 docker compose up --build --watch
