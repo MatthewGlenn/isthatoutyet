@@ -1,4 +1,7 @@
 #!/bin/sh
+# This stores the all the intellisense for prisma to undertand the schema
+npx prisma generate
+
 if [ "$1" = "clean" ]; then
     echo "Starting from a clean slate"
     docker compose down
