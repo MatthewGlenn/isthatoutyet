@@ -23,7 +23,7 @@ export class VideoGameAndRelease {
 }
 
 const ReleaseObject = z.object({
-    releaseDate: z.date(),
+    releaseDate: z.string(),
     platform: z.string(),
     productType: z.string().optional(),
     productTitleId: z.string().optional(),

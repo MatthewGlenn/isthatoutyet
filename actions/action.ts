@@ -135,7 +135,7 @@ export async function loadDatafromScrapper(videoGame: VideoGame) {
                     platform: game?.platform ?? "no platform",
                     productTitleId: unique.id,
                     productType: "game",
-                    releaseDate: game?.releaseDate.toLocaleDateString() ?? noDate
+                    releaseDate: game?.releaseDate ?? noDate
                 }
             }) ?? [];
 
@@ -170,7 +170,7 @@ export async function loadDatafromScrapper(videoGame: VideoGame) {
                 platform: game?.platform ?? "no platform",
                 productTitleId: id.id,
                 productType: "game",
-                releaseDate: game?.releaseDate.toLocaleDateString() ?? noDate
+                releaseDate: game?.releaseDate ?? noDate
             }
         }) ?? [];
 
@@ -229,11 +229,12 @@ export async function loadMultipleDatafromScrapper(videoGames: VideoGame[]) {
                 releases: []
             };
             const arr : Release[] = vid.releases?.map((x) => {
+                const date = x?.releaseDate ? new Date(x.releaseDate)  :  new Date(noDate);
                 const rel : Release = {
                     platform: x?.platform ?? "no platform",
                     productTitleId: game.id,
                     productType: "game",
-                    releaseDate: x?.releaseDate ?? new Date(noDate)
+                    releaseDate: date
                 };
                 return rel;
             }) ?? [];

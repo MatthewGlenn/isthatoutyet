@@ -34,13 +34,19 @@ Content-Type: application/json
   "onSale": false
   },
   {
-  "name": "BattleStar Galatrica",
+  "name": "BattleStar Galatricas",
   "Release Date": "Nov 10, 2024",
   "Platforms": "Switch",
   "Score": null,
   "genre": "Action, RPG",
   "image": "imageurl",
   "Box Art": "https://img.opencritic.com/game/undefined/EOhy6JbD.jpg",
-  "onSale": true
+  "onSale": true,
+  "releases": [
+    {
+      "platform": "PS4",
+      "releaseDate": "202-07-2025"
+    }
+  ]
   }
 ]
