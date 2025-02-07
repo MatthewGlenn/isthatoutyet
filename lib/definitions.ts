@@ -19,15 +19,21 @@ export class VideoGameAndRelease {
         this.productType = productType;
         this.releases = releases;
     }
-
 }
 
-const ReleaseObject = z.object({
+export type ReleaseWrite = {
+    name: string;
+    platform: string;
+    productType: string;
+    releaseDate: Date;
+}
+
+export const ReleaseObject = z.object({
+    name: z.string(),
     releaseDate: z.string(),
     platform: z.string(),
-    productType: z.string().optional(),
-    productTitleId: z.string().optional(),
-}).optional();
+    productType: z.string()
+});
 
 export const VideoGameObject = z.object({
     name: z.string(),
@@ -45,5 +51,7 @@ export const VideoGameObject = z.object({
 });
 
 export const VideoGameObjects = VideoGameObject.array();
+
+export const ReleaseObjects = ReleaseObject.array();
 
 export type VideoGame = z.infer<typeof VideoGameObject>;
