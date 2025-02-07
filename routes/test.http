@@ -29,7 +29,6 @@ Content-Type: application/json
         "sale_price": 5,
         "onSale": true,
         "storeUrl": "https://www.amazon.com/Mario-Luigi-Brothership-Nintendo-Switch/dp/B07W39854Y/ref=sr_1_2?dchild=1&keywords=mario+brothership&qid=1633366666&q=mario+brothership&s=videogames&sr=1-2",
-        "Box Art": "https://img.opencritic.com/game/undefined/EOhy6JbD.jpg",
         "datePublished": "Nov 7, 2024"
  }
 
