@@ -1,0 +1,14 @@
+### POST ###
+### request with multiple objects ###
+
+POST http://localhost:3000/api/release/
+Content-Type: application/json
+
+[
+  {
+  "name": "Zombie Survival",
+  "releaseDate": "Nov 7, 2024",
+  "platform": "Switch",
+  "productType": "VideoGame"
+  }
+]

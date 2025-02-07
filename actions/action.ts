@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from '@/lib/db';
-import { VideoGame, VideoGameAndRelease, Release } from '@/lib/definitions';
+import {VideoGame, VideoGameAndRelease, ReleaseWrite, Release} from '@/lib/definitions';
 import { GameUS } from 'nintendo-switch-eshop';
 import { DateTime } from 'luxon';
 
@@ -130,25 +130,10 @@ export async function loadDatafromScrapper(videoGame: VideoGame) {
                 }
             });
 
-            const releases = videoGame.releases?.map(game => {
-                return {
-                    platform: game?.platform ?? "no platform",
-                    productTitleId: unique.id,
-                    productType: "game",
-                    releaseDate: game?.releaseDate ?? noDate
-                }
-            }) ?? [];
-
-
-            if(releases.length > 0) {
-                await prisma.release.createMany({
-                    data: releases
-                });
-            }
             return;
         }
 
-        const id = await prisma.videoGame.create({
+        await prisma.videoGame.create({
             data: {
                 name: videoGame.name,
                 description: videoGame.description,
@@ -160,26 +145,9 @@ export async function loadDatafromScrapper(videoGame: VideoGame) {
                 datePublished: videoGame.datePublished,
                 score: videoGame.score,
                 storeUrl: videoGame.storeUrl
-            },
-            select: {
-                id: true
             }
         });
-        const releases = videoGame.releases?.map(game => {
-            return {
-                platform: game?.platform ?? "no platform",
-                productTitleId: id.id,
-                productType: "game",
-                releaseDate: game?.releaseDate ?? noDate
-            }
-        }) ?? [];
 
-
-        if(releases.length > 0) {
-            await prisma.release.createMany({
-                data: releases
-            });
-        }
         return;
 
     }
@@ -191,7 +159,6 @@ export async function loadDatafromScrapper(videoGame: VideoGame) {
 
 export async function loadMultipleDatafromScrapper(videoGames: VideoGame[]) {
     try {
-
         const filters = videoGames.map(game=>game.name);
 
         const records = await prisma.videoGame.findMany({
@@ -208,7 +175,7 @@ export async function loadMultipleDatafromScrapper(videoGames: VideoGame[]) {
                 },
             });
 
-        if(records !== null) {
+        if(records !== null && records !== undefined) {
             const toBeDeleted = records.map(rec=>rec.id);
             await prisma.videoGame.deleteMany({
                 where: {
@@ -219,36 +186,67 @@ export async function loadMultipleDatafromScrapper(videoGames: VideoGame[]) {
             })
         }
 
-        const ids = await prisma.videoGame.createManyAndReturn({
+        await prisma.videoGame.createManyAndReturn({
             data: videoGames
         });
 
-        const releases: Release[] = [];
-        ids.forEach((game) => {
-            const vid = videoGames.find(x=>x.name == game.name) ?? {
-                releases: []
-            };
-            const arr : Release[] = vid.releases?.map((x) => {
-                const date = x?.releaseDate ? new Date(x.releaseDate)  :  new Date(noDate);
-                const rel : Release = {
-                    platform: x?.platform ?? "no platform",
-                    productTitleId: game.id,
-                    productType: "game",
-                    releaseDate: date
-                };
-                return rel;
-            }) ?? [];
+        return;
+    }
+    catch (error) {
+        console.log(error);
 
-            if(arr.length > 0) {
-                arr.forEach(x => releases.push(x));
-            }
+    }
+}
 
+export async function loadReleaseDates(releaseDates: ReleaseWrite[]) {
+    try {
+        const filters = releaseDates.map(date=>date.name);
+
+        const records = await prisma.videoGame.findMany({
+            where: {
+                ...(filters
+                    ? {
+                        OR: [ {
+                            name: {
+                                in: filters
+                            }
+                        }]
+                    }
+                    : {})
+            },
         });
-        if(releases.length > 0) {
+
+        if(records !== null && records !== undefined) {
+            const toBeDeleted = records.map(rec=>rec.id);
+            await prisma.release.deleteMany({
+                where: {
+                    productTitleId: {
+                        in: toBeDeleted
+                    }
+                }
+            })
+        }
+
+        const releases: Release[] = [];
+
+        filters.forEach(y => {
+            const curr = releaseDates[filters.indexOf(y)];
+            const obj: Release = {
+                platform: curr.platform,
+                productType: curr.productType,
+                releaseDate: curr.releaseDate,
+                productTitleId: records[filters.indexOf(y)].id
+            }
+            releases.push(obj)
+        })
+
+        if(releases.length  > 0) {
             await prisma.release.createMany({
                 data: releases
             });
         }
+        
+
         return;
     }
     catch (error) {
