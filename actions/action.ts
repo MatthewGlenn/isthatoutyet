@@ -119,7 +119,6 @@ export async function loadDatafromScrapper(videoGame: VideoGame) {
                 data: {
                     name: videoGame.name,
                     description: videoGame.description,
-                    boxArtUrl: videoGame.boxArtUrl,
                     genre: videoGame.genre,
                     image: videoGame.image,
                     onSale: videoGame.onSale,
@@ -137,7 +136,6 @@ export async function loadDatafromScrapper(videoGame: VideoGame) {
             data: {
                 name: videoGame.name,
                 description: videoGame.description,
-                boxArtUrl: videoGame.boxArtUrl,
                 genre: videoGame.genre,
                 image: videoGame.image,
                 onSale: videoGame.onSale,

@@ -112,7 +112,6 @@ async function main() {
         price: number | null;
         onSale: boolean | null;
         storeUrl: string | null;
-        boxArtUrl: string | null;
         createdAt: Date;
         updatedAt: Date;
     }[] = await prisma.videoGame.createManyAndReturn({

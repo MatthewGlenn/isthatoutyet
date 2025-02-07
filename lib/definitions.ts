@@ -45,7 +45,6 @@ export const VideoGameObject = z.object({
     sale_price: z.number().optional(),
     onSale: z.boolean().optional(),
     storeUrl: z.string().optional(),
-    boxArtUrl: z.string().optional(),
     releases: ReleaseObject.array().optional(),
     datePublished: z.date().optional(),
 });
